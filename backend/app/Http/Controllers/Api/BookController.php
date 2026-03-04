@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Validation\Rule;
 
 
 class BookController extends Controller
@@ -20,26 +21,38 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'book_name' => 'required|string|max:150',
-            'author' => 'required|string|max:150',
-            'description' => 'nullable|string',
-            'published_date' => 'required|date',
+            'book_name' => [
+                'required',
+                'string',
+                'max:150',
+                Rule::unique('books')
+                    ->where(
+                        fn($query) =>
+                        $query->where('author', $request->author)
+                    )
+            ],
+            'author' => [
+                'required',
+                'string',
+                'max:150',
+            ],
+            'description' => [
+                'nullable',
+                'string',
+            ],
+            'published_date' => [
+                'required',
+                'date',
+            ],
         ]);
-
-        // cek unique kombinasi
-        $exists = Book::where('book_name', $validated['book_name'])
-            ->where('author', $validated['author'])
-            ->exists();
-
-        if ($exists) {
-            return response()->json([
-                'message' => 'Book with same name and author already exists'
-            ], 422);
-        }
 
         $book = Book::create($validated);
 
-        return response()->json($book, 201);
+        return response()->json([
+            'success' => true,
+            'message' => 'Book created successfully',
+            'data' => $book
+        ], 201);
     }
 
     // UPDATE (only description)
@@ -63,32 +76,28 @@ class BookController extends Controller
     }
 
     // DELETE
-    public function destroy($id)
+    public function destroy(Book $book)
     {
-        $book = Book::find($id);
-
-        if (!$book) {
-            return response()->json(['message' => 'Book not found'], 404);
-        }
-
         $book->delete();
 
         return response()->json([
+            'success' => true,
             'message' => 'Book deleted successfully'
-        ]);
+        ], 200);
     }
 
     // SEARCH
     public function search(Request $request)
     {
+        $search = $request->query('search');
+
         $query = Book::query();
 
-        if ($request->book_name) {
-            $query->where('book_name', 'ilike', '%' . $request->book_name . '%');
-        }
-
-        if ($request->description) {
-            $query->where('description', 'ilike', '%' . $request->description . '%');
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('book_name', 'ilike', "%$search%")
+                    ->orWhere('description', 'ilike', "%$search%");
+            });
         }
 
         return response()->json($query->paginate(4));

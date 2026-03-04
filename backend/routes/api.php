@@ -43,6 +43,6 @@ Route::prefix('books')->group(function () {
     Route::put('/{id}', [BookController::class, 'update']);
 
     // Delete book
-    Route::delete('/{id}', [BookController::class, 'destroy']);
+    Route::delete('/books/{book}', [BookController::class, 'destroy']);
 
 });

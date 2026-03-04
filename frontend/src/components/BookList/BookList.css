@@ -1,0 +1,55 @@
+/* Container */
+.booklist-container {
+  margin-top: 20px;
+}
+
+/* Title */
+.booklist-title {
+  margin-bottom: 20px;
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+/* Grid Layout */
+.booklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Empty State */
+.empty-state {
+  padding: 40px;
+  text-align: center;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e1;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.booklist-grid {
+  display: grid;
+  gap: 24px;
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .booklist-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .booklist-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .booklist-grid {
+    grid-template-columns: 1fr;
+  }
+}

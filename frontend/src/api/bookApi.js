@@ -1,16 +1,50 @@
-import axios from "axios";
+import axiosInstance from "./axios";
 
-const API_URL = "http://localhost:8000/api/books"; // sesuaikan URL backend
+const BOOK_URL = "/books";
 
-// Fetch books dengan pagination & search
-export const fetchBooks = (page = 1, search = "") =>
-  axios.get(API_URL, { params: { page, search } });
+// ==========================
+// GET ALL BOOKS (Pagination)
+// ==========================
+export const fetchBooks = async (page = 1) => {
+  return axiosInstance.get(BOOK_URL, {
+    params: { page },
+  });
+};
 
-// Create new book
-export const createBook = (data) => axios.post(API_URL, data);
+// ==========================
+// SEARCH BOOKS
+// ==========================
+// export const searchBooks = async (query, page = 1) => {
+//   return axiosInstance.get(`${BOOK_URL}/search`, {
+//     params: { search: query, page }
+//   });
+// };
 
-// Update book (deskripsi saja)
-export const updateBook = (id, data) => axios.put(`${API_URL}/${id}`, data);
+export const searchBooks = async (search, page = 1) => {
+  return axiosInstance.get("/books/search", {
+    params: { search, page },
+  });
+};
 
-// Delete book
-export const deleteBook = (id) => axios.delete(`${API_URL}/${id}`);
+// ==========================
+// CREATE BOOK
+// ==========================
+export const createBook = async (data) => {
+  return axiosInstance.post(BOOK_URL, data);
+};
+
+// ==========================
+// UPDATE BOOK (Description)
+// ==========================
+export const updateBook = async (id, description) => {
+  return axiosInstance.put(`${BOOK_URL}/${id}`, {
+    description,
+  });
+};
+
+// ==========================
+// DELETE BOOK
+// ==========================
+export const deleteBook = async (id) => {
+  return axiosInstance.delete(`${BOOK_URL}/${id}`);
+};

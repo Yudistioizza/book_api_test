@@ -1,0 +1,211 @@
+/* =========================
+   MODAL OVERLAY
+========================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.45);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  z-index: 1000;
+}
+
+/* =========================
+   MODAL BOX
+========================= */
+.modal-content {
+  position: relative;
+  background: #ffffff;
+  color: #111827;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  animation: fadeIn 0.2s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+.close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #374151;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #e5e7eb;
+}
+
+/* =========================
+   TITLE
+========================= */
+.bookform-title {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
+/* =========================
+   FORM
+========================= */
+.bookform-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* =========================
+   FORM GROUP
+========================= */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* =========================
+   INPUT & TEXTAREA
+========================= */
+.form-group input,
+.form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  background: #f9fafb;
+  color: #111827;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* =========================
+   SUBMIT BUTTON (Scoped)
+========================= */
+.bookform-form button {
+  margin-top: 8px;
+  padding: 10px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.bookform-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+}
+
+.bookform-form button:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =========================
+   MESSAGES
+========================= */
+.success-message {
+  font-size: 13px;
+  padding: 8px 10px;
+  background: #ecfdf5;
+  color: #16a34a;
+  border-radius: 8px;
+}
+
+.error-message {
+  font-size: 13px;
+  padding: 8px 10px;
+  background: #fef2f2;
+  color: #dc2626;
+  border-radius: 8px;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 20px;
+    border-radius: 14px;
+  }
+
+  .bookform-title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 18px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-size: 13px;
+  }
+
+  .bookform-form button {
+    font-size: 14px;
+  }
+}
+
+.required-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.required-star {
+  color: #dc2626; /* merah */
+  font-size: 14px;
+  font-weight: 600;
+}
